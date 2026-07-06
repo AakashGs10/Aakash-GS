@@ -8,12 +8,12 @@ A unified firmware architecture engineered for low-power, resource-constrained w
 * **Collision Mitigation:** Employs a standardized 15–25 second randomized transmission jitter interval to minimize IEEE 802.15.4 MAC-layer radio collisions.
 * **Hardware Profiling:** Tracks energy consumption natively via continuous Energest CPU and radio power state logging.
 
-## 🚀 Environment Stack
+##  Environment Stack
 * **Operating System:** Contiki OS
 * **Simulation Framework:** Cooja Simulator (IEEE 802.15.4 MAC/PHY layers)
 * **Languages:** C (Embedded Firmware), Python (Performance Visualization)
 
-## 📁 Setup & Deployment
+## Setup & Deployment
 1. Load this `main.c` file into your Cooja simulation environment.
 2. Compile your nodes using the appropriate target architecture (e.g., `sky` motes).
 3. Assign Mote ID `11` to your designated Gateway/Sink node to initialize the listening and logging services.
