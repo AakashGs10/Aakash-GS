@@ -1,26 +1,38 @@
-# Hi, I'm Aakash G S 👋
+# Engineering Portfolio: AI, Computer Networks & Security Research
 
-B.Tech Computer Science & Engineering (AI) student at Amrita Vishwa Vidyapeetham, Coimbatore. I focus on computer networks, cryptographic security frameworks, and building resilient intelligent systems at scale.
-
-- 🛡️ **Core Focus:** Network Architecture, Wireless Physical-Layer Cryptography, IoT & Edge Security.
-- 💻 **Tech Stack:** C, C++, Python, SQL, Linux, Git, Contiki OS, Cooja Simulator.
-- 🔬 **Research Interests:** Physical-layer key generation, network automation, and trust architectures.
+Welcome to my master technical repository. This portfolio centralizes my core engineering work spanning physical-layer cryptographic frameworks, automated network security simulations, and explainable machine learning pipelines.
 
 ---
 
-### 🔥 Core Engineering Projects
+## 📂 Project Directory Breakdown
 
-#### 🛰️ SignalKey
-*RSSI-Based Secret Key Generation for Wireless IoT Networks*
-- Engineered a decentralized physical-layer security protocol using Contiki OS and Cooja Simulator.
-- Designed custom noise-filtering algorithms in C to optimize key generation and minimize Bit Error Rates (BER).
+### 🛰️ 1. SignalKey: RSSI-Based Secret Key Generation
+* **Directory:** `_SignalKey_IoT_Security/`
+* **Core Stack:** Contiki OS, Cooja Simulator, C, Python
+* Engineered a decentralized physical-layer security protocol utilizing wireless RSSI values to dynamically generate cryptographic keys for resource-constrained nodes.
+* Simulated multi-node adversarial topologies within Cooja to analyze key extraction entropy and minimize Bit Error Rates (BER) at the MAC/PHY layer.
 
-#### 🌲 Merkle-Tree-Storage
-*High-Performance Cryptographic Ledger Storage*
-- Engineered a hierarchical Merkle Tree structure from scratch in C++ to secure transactional assets.
-- Implemented O(log N) data integrity verification and immediate zero-trust tamper detection protocols.
+### 🕵️‍♂️ 2. Fake Job Posting Detection using Explainable AI
+* **Directory:** `2_Fake_Job_Posting_Detection/`
+* **Core Stack:** Python, XGBoost, LightGBM, SHAP, Streamlit
+* Built an end-to-end classification framework using TF-IDF NLP features to accurately detect fraudulent web data and job postings.
+* Optimized system performance via a stacking ensemble architecture and integrated SHAP for local/global prediction interpretability.
 
-#### 🕵️‍♂️ XAI-FakeJob-Detector
-*Explainable AI Fraud Detection Pipeline*
-- Built an NLP classification framework utilizing TF-IDF features and a LightGBM/XGBoost stacking ensemble.
-- Integrated SHAP for comprehensive model auditability and local/global transparency.
+### 🌲 3. Merkle Tree-Based Transaction Storage System
+* **Directory:** `3_Merkle_Tree_Ledger/`
+* **Core Stack:** C++, Cryptographic Hashing (SHA-256), Data Structures
+* Programmed a high-performance hierarchical Merkle Tree structure from scratch to cryptographically secure transactional ledger integrity.
+* Enabled real-time zero-trust tamper detection alongside efficient $O(\log N)$ structural proof validation profiles.
+
+### 💊 4. Pharma Verichain Model: Supply Chain Compliance
+* **Directory:** `4_Pharma_Verichain/`
+* **Core Stack:** Python, Scikit-Learn, Pandas, ML Classifiers
+* Developed a machine learning pipeline to classify and validate FDA product data to isolate anomalies and fraudulent patterns within supply chains.
+* Applied structured feature engineering and cross-validation techniques to maximize baseline classification boundaries.
+
+---
+
+## 🛠️ Technical Competency Matrix
+
+* **Networking & Security:** TCP/IP Stack, Network Security, Cryptographic Key Generation, Wireless Sensor Networks (WSN), Contiki OS, Cooja Simulator.
+* **Core Computing & Languages:** Data Structures & Algorithms (DSA), OOP, C, Python, C++, SQL, Linux, Git.
