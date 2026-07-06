@@ -1,8 +1,4 @@
-# Engineering Portfolio: AI, Computer Networks & Security Research
 
-Welcome to my master technical repository. This portfolio centralizes my core engineering work spanning physical-layer cryptographic frameworks, automated network security simulations, and explainable machine learning pipelines.
-
----
 
 ## 📂 Project Directory Breakdown
 
