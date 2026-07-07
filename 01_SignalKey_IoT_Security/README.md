@@ -45,3 +45,30 @@ graph TD
     style L2 fill:#5cb85c,stroke:#333,stroke-width:2px,color:#fff
     style L3 fill:#5cb85c,stroke:#333,stroke-width:2px,color:#fff
     style L4 fill:#5cb85c,stroke:#333,stroke-width:2px,color:#fff
+
+    # 🏛️ SignalKey: End-to-End Architecture & System Workflow
+
+This document provides a comprehensive, visual breakdown of how **SignalKey** operates from scratch. It details the transformation of raw sensor telemetry through physical layer security (PLS) and dynamic obfuscation, its routing across an RPL mesh network, and why single-trip transmission outperforms traditional multi-stage handshakes.
+
+---
+
+## The Big Picture: Life of a SignalKey Packet
+
+When a leaf sensor node samples an environmental metric (such as temperature), the data undergoes a **3-stage transformation pipeline** before ever touching the wireless radio medium. This ensures that even if an eavesdropper captures every broadcast, they cannot read the payload, infer packet lengths, or perform traffic pattern analysis.
+
+```mermaid
+graph TD
+    A["1. Raw Telemetry Sampled<br/>(e.g., 'TEMP:28')"] --> B["2. Circular Shift Scrambling<br/>(Rotate structure by Key k)"]
+    B --> C["3. Random Noise Injection<br/>(Interleave alphanumeric camouflage)"]
+    C --> D["4. RSSI PLS XOR Encryption<br/>(Bind to RF physical channel seed)"]
+    D --> E["5. Append Protocol Tag 'R'<br/>(Single-trip frame construction)"]
+    E --> F["6. UDP / 6LoWPAN Broadcast<br/>(Upward DODAG routing to Sink)"]
+    F --> G["7. Universal Gateway Sink<br/>(XOR Decrypt -> Strip Noise -> Unshift)"]
+
+    style A fill:#4e79a7,stroke:#333,stroke-width:2px,color:#fff
+    style B fill:#f28e2b,stroke:#333,stroke-width:2px,color:#fff
+    style C fill:#f28e2b,stroke:#333,stroke-width:2px,color:#fff
+    style D fill:#e15759,stroke:#333,stroke-width:2px,color:#fff
+    style E fill:#76b7b2,stroke:#333,stroke-width:2px,color:#fff
+    style F fill:#59a14f,stroke:#333,stroke-width:2px,color:#fff
+    style G fill:#af7aa1,stroke:#333,stroke-width:2px,color:#fff
