@@ -1,12 +1,6 @@
 # SignalKey: Secure IoT Data Transmission Using Dynamic Shift and Noise Injection
 
-![Contiki OS](https://img.shields.io/badge/OS-Contiki%202.7-0072C6?style=flat-square&logo=linux)
-![Simulator](https://img.shields.io/badge/Simulator-Cooja-4B0082?style=flat-square)
-![Routing Protocol](https://img.shields.io/badge/Protocol-RPL%20%2F%206LoWPAN-009688?style=flat-square)
-![Transport Protocol](https://img.shields.io/badge/Transport-UDP-009688?style=flat-square)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
-
-## 📌 Executive Summary & Introduction
+##  Executive Summary & Introduction
 In low-power, resource-constrained Internet of Things (IoT) sensor networks (such as IEEE 802.15.4 / 6LoWPAN), devices are strictly limited by low-frequency microcontrollers (8–32 MHz), minimal RAM (10–64 KB), and battery-powered operation. Running traditional, computation-heavy cryptographic suites continuously depletes battery life and introduces severe processing latency. 
 
 Furthermore, even when payloads are encrypted, wireless broadcasts remain highly vulnerable to **Traffic Analysis Attacks** and **Passive Eavesdropping**. Attackers within RF range can monitor packet lengths, transmission intervals, and communication frequencies to infer sensor behavior or predict critical network events without decrypting the underlying bytes.
@@ -17,7 +11,7 @@ Furthermore, even when payloads are encrypted, wireless broadcasts remain highly
 
 ---
 
-## 🌐 Network Topology & RPL DODAG Routing
+##  Network Topology & RPL DODAG Routing
 This project operates over the **Routing Protocol for Low-Power and Lossy Networks (RPL)**, standardized by the IETF for constrained wireless environments. RPL organizes wireless motes into a hierarchical **Destination Oriented Directed Acyclic Graph (DODAG)**, ensuring efficient upward data routing from leaf sensors to the root gateway.
 
 ```mermaid
@@ -47,10 +41,6 @@ graph TD
     style L4 fill:#5cb85c,stroke:#333,stroke-width:2px,color:#fff
 
 
-    <img width="913" height="626" alt="image" src="https://github.com/user-attachments/assets/273031b2-ccc7-46c0-b941-7e543a5d0cab" />
-
-
-    <img width="902" height="222" alt="image" src="https://github.com/user-attachments/assets/4ae2e9d0-81ac-4d66-a884-a8a13b88bca1" />
 
     sequenceDiagram
     autonumber
@@ -68,7 +58,7 @@ graph TD
     Note over G: Log Validated Telemetry & CPU Energest Ticks
 
 
-    <img width="910" height="176" alt="image" src="https://github.com/user-attachments/assets/c05f1918-a123-4e16-be22-794e9c4890c1" />
+
     sequenceDiagram
     autonumber
     participant S as Sensor Node (Sender Shift k1 = 3)
@@ -85,6 +75,3 @@ graph TD
     S->>RF: Stage 3 Packet: 3[LLOHE]
     RF->>R: Receive Stage 3
     Note over R: Reverse Sender Shift: "LLOHE" -> "HELLO"<br/>Final Validated Sensor Output
-
-
-
