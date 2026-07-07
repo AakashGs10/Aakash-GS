@@ -50,34 +50,48 @@ Across standardized 10-minute simulation sessions with 10 concurrent sensor mote
 
 GitHub natively renders the sequence diagrams below, illustrating the traffic overhead differences between the evaluated methodologies:
 
-### 1. SignalKey (RSSI PLS) — Single-Trip Confidentiality
-```mermaid
-sequenceDiagram
-    autonumber
-    participant S as Sensor Node (Sender)
-    participant RF as Physical RF Channel
-    participant G as Gateway Sink (Receiver)
-    
-    Note over S: Sample Sensor Data (TEMP:x)<br/>Derive RSSI Channel Seed
-    S->>S: Apply Bitwise PLS Obfuscation
-    S->>RF: Transmit Tagged Frame ['R' | Encrypted Payload]
-    RF->>G: Single-Trip UDP Broadcast
-    Note over G: Verify Protocol Tag 'R'<br/>Strip Cryptographic Layer
-    G->>G: Log Validated Telemetry & Energest Ticks
+# SignalKey: Secure IoT Data Transmission Using Dynamic Shift and Noise Injection
 
-    sequenceDiagram
-    autonumber
-    participant S as Sensor Node (Sender)
-    participant RF as Physical RF Channel
-    participant G as Gateway Sink (Receiver)
+![Contiki OS](https://img.shields.io/badge/OS-Contiki%202.7-0072C6?style=flat-square&logo=linux)
+![Simulator](https://img.shields.io/badge/Simulator-Cooja-4B0082?style=flat-square)
+![Routing Protocol](https://img.shields.io/badge/Protocol-RPL%20%2F%206LoWPAN-009688?style=flat-square)
+![Transport Protocol](https://img.shields.io/badge/Transport-UDP-009688?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+
+## 📌 Executive Summary & Introduction
+In low-power, resource-constrained Internet of Things (IoT) sensor networks (such as IEEE 802.15.4 / 6LoWPAN), devices are strictly limited by low-frequency microcontrollers (8–32 MHz), minimal RAM (10–64 KB), and battery-powered operation. Running traditional, computation-heavy cryptographic suites continuously depletes battery life and introduces severe processing latency. 
+
+Furthermore, even when payloads are encrypted, wireless broadcasts remain highly vulnerable to **Traffic Analysis Attacks** and **Passive Eavesdropping**. Attackers within RF range can monitor packet lengths, transmission intervals, and communication frequencies to infer sensor behavior or predict critical network events without decrypting the underlying bytes.
+
+**SignalKey** solves these challenges by introducing a lightweight **Physical Layer Security (PLS)** framework coupled with **Dynamic Obfuscation**:
+1. **Physical Layer Security (RSSI-Based Dynamic Keying):** Leverages the unique, location-dependent channel reciprocity of Received Signal Strength Indicators (RSSI) between communicating nodes to derive dynamic encryption seeds without interactive exchange overhead.
+2. **Dynamic Obfuscation (Scramble & Camouflage):** Combines a Right Circular Shift algorithm to disrupt message structure with randomized alphanumeric noise injection to mask true packet lengths—effectively rendering passive traffic analysis impossible while preserving optimal network stability.
+
+---
+
+## 🌐 Network Topology & RPL DODAG Routing
+This project operates over the **Routing Protocol for Low-Power and Lossy Networks (RPL)**, standardized by the IETF for constrained wireless environments. RPL organizes wireless motes into a hierarchical **Destination Oriented Directed Acyclic Graph (DODAG)**, ensuring efficient upward data routing from leaf sensors to the root gateway.
+
+```mermaid
+graph TD
+    classDef root fill:#d9534f,stroke:#333,stroke-width:2px,color:#fff;
+    classDef router fill:#0275d8,stroke:#333,stroke-width:2px,color:#fff;
+    classDef leaf fill:#5cb85c,stroke:#333,stroke-width:2px,color:#fff;
+
+    Root["Root Gateway Node (Sink / DODAG Root)"] ::: root
     
-    Note over S: Encrypt Payload (Key 1)
-    S->>RF: Step 1: Transmit ['1' | Key1(Data)]
-    RF->>G: Receive Step 1
-    Note over G: Add Second Layer (Key 2)
-    G->>RF: Step 2: Transmit ['2' | Key2(Key1(Data))]
-    RF->>S: Receive Step 2 (High Collision Risk)
-    Note over S: Strip Key 1 Layer
-    S->>RF: Step 3: Transmit ['3' | Key2(Data)]
-    RF->>G: Receive Step 3
-    Note over G: Strip Key 2 Layer -> Read Data
+    R1["Intermediate Router Node A"] ::: router
+    R2["Intermediate Router Node B"] ::: router
+    
+    L1["Leaf Sensor Mote 1"] ::: leaf
+    L2["Leaf Sensor Mote 2"] ::: leaf
+    L3["Leaf Sensor Mote 3"] ::: leaf
+    L4["Leaf Sensor Mote 4"] ::: leaf
+
+    L1 -->|UDP / 6LoWPAN| R1
+    L2 -->|UDP / 6LoWPAN| R1
+    L3 -->|UDP / 6LoWPAN| R2
+    L4 -->|UDP / 6LoWPAN| R2
+    
+    R1 -->|Upward DODAG Routing| Root
+    R2 -->|Upward DODAG Routing| Root
