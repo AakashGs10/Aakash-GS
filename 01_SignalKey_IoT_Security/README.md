@@ -45,3 +45,46 @@ graph TD
     style L2 fill:#5cb85c,stroke:#333,stroke-width:2px,color:#fff
     style L3 fill:#5cb85c,stroke:#333,stroke-width:2px,color:#fff
     style L4 fill:#5cb85c,stroke:#333,stroke-width:2px,color:#fff
+
+
+    <img width="913" height="626" alt="image" src="https://github.com/user-attachments/assets/273031b2-ccc7-46c0-b941-7e543a5d0cab" />
+
+
+    <img width="902" height="222" alt="image" src="https://github.com/user-attachments/assets/4ae2e9d0-81ac-4d66-a884-a8a13b88bca1" />
+
+    sequenceDiagram
+    autonumber
+    participant S as Sensor Node (Sender)
+    participant RF as Wireless RF Channel (UDGM)
+    participant G as Root Gateway (Receiver Sink)
+    
+    Note over S: Sample Telemetry (e.g., "HELLO")<br/>Apply Right Circular Shift (Key k=3) -> "LLOHE"
+    S->>S: Interleave Random Noise -> "L5LbO9H4Ex"
+    Note over S: Derive RSSI Physical Channel Seed<br/>Apply Bitwise XOR PLS Obfuscation
+    S->>RF: Broadcast Tagged Packet [Flag 'R' | Obfuscated Payload]
+    RF->>G: Single-Trip UDP Packet Delivery
+    Note over G: Verify Protocol Flag 'R'<br/>Apply XOR PLS Decryption via Channel Seed
+    G->>G: Strip Injected Noise ("L5LbO9H4Ex" -> "LLOHE")<br/>Reverse Circular Shift (Key k=3) -> "HELLO"
+    Note over G: Log Validated Telemetry & CPU Energest Ticks
+
+
+    <img width="910" height="176" alt="image" src="https://github.com/user-attachments/assets/c05f1918-a123-4e16-be22-794e9c4890c1" />
+    sequenceDiagram
+    autonumber
+    participant S as Sensor Node (Sender Shift k1 = 3)
+    participant RF as RPL / 6LoWPAN Mesh Network
+    participant R as Gateway Sink (Receiver Shift k2 = 2)
+    
+    Note over S: Original: "HELLO" -> Shift: "LLOHE"<br/>Inject Noise: "L5LbO9H4Ex"
+    S->>RF: Stage 1 Packet: 1[L5LbO9H4Ex]
+    RF->>R: Receive Stage 1
+    Note over R: Strip Sender Noise -> Reverse Shift ("HELLO")<br/>Apply Receiver Shift ("LLOHE") -> Inject Noise ("H7E3L9L205")
+    R->>RF: Stage 2 Packet: 2[H7E3L9L205]
+    RF->>S: Receive Stage 2 (High RF Collision Risk)
+    Note over S: Strip Receiver Noise -> Reverse Shift ("HELLO")<br/>Apply Reverse Sender Shift ("LLOHE")
+    S->>RF: Stage 3 Packet: 3[LLOHE]
+    RF->>R: Receive Stage 3
+    Note over R: Reverse Sender Shift: "LLOHE" -> "HELLO"<br/>Final Validated Sensor Output
+
+
+
